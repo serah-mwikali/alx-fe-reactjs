@@ -2,13 +2,18 @@ import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import UserProfile from './components/UserProfile';
+import Counter from './components/Counter';
 
 function App() {
   return (
     <div className="App">
-      {/* Existing Components */}
+      {/* Header */}
       <Header />
+
+      {/* Main Content */}
       <MainContent />
+
+      {/* Footer */}
       <Footer />
 
       {/* User Profiles */}
@@ -27,6 +32,9 @@ function App() {
         age="28"
         bio="Fan of music and art"
       />
+
+      {/* Counter Component */}
+      <Counter />
     </div>
   );
 }
