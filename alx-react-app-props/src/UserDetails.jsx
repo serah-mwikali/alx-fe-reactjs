@@ -1,15 +1,16 @@
-import { useContext } from "react";
-import UserContext from "./UserContext";
 
-function UserDetails() {
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
+
+function UserProfile() {  // or UserDetails if following ALX name
   const userData = useContext(UserContext);
 
   return (
     <div>
-      <p>Name: {userData.name}</p>
+      <h2>{userData.name}</h2>
       <p>Email: {userData.email}</p>
     </div>
   );
 }
 
-export default UserDetails;
+export default UserProfile;
