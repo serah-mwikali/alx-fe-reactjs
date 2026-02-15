@@ -1,5 +1,5 @@
 // src/components/recipeStore.js
-import { create } from "zustand"; // ✅ fixed
+import { create } from "zustand";
 import { nanoid } from "nanoid";
 
 export const useRecipeStore = create((set) => ({

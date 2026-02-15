@@ -1,36 +1,39 @@
-// src/components/EditRecipeForm.jsx
 import { useState } from "react";
 import { useRecipeStore } from "./recipeStore";
 
-const EditRecipeForm = ({ recipe }) => {
-  const { updateRecipe } = useRecipeStore();
+const EditRecipeForm = ({ recipe, onClose }) => {
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleUpdate = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!title || !description) return alert("Fill both fields!");
     updateRecipe(recipe.id, title, description);
-    alert("Recipe updated!");
+    onClose(); // Close the edit form after updating
   };
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <form onSubmit={handleSubmit} style={{ marginTop: "10px" }}>
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        style={{ padding: "6px", marginRight: "10px", width: "200px" }}
+        style={{ padding: "6px", marginRight: "6px" }}
       />
       <input
         type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        style={{ padding: "6px", marginRight: "10px", width: "250px" }}
+        style={{ padding: "6px", marginRight: "6px" }}
       />
-      <button onClick={handleUpdate} style={{ padding: "6px 12px", cursor: "pointer" }}>
-        Update Recipe
+      <button type="submit" style={{ padding: "6px 12px", cursor: "pointer" }}>
+        Save
       </button>
-    </div>
+      <button type="button" onClick={onClose} style={{ padding: "6px 12px" }}>
+        Cancel
+      </button>
+    </form>
   );
 };
 
