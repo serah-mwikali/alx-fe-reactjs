@@ -1,26 +1,35 @@
 // src/components/EditRecipeForm.jsx
-import React, { useState } from "react";
-import { useRecipeStore } from "../recipeStore";
+import { useState } from "react";
+import { useRecipeStore } from "./recipeStore";
 
 const EditRecipeForm = ({ recipe }) => {
-  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
+  const { updateRecipe } = useRecipeStore();
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
   const handleUpdate = () => {
-    updateRecipe(recipe.id, { title, description });
+    if (!title || !description) return alert("Fill both fields!");
+    updateRecipe(recipe.id, title, description);
     alert("Recipe updated!");
   };
 
   return (
-    <div>
-      <h3>Edit Recipe</h3>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
+    <div style={{ marginTop: "20px" }}>
       <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        style={{ padding: "6px", marginRight: "10px", width: "200px" }}
+      />
+      <input
+        type="text"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        style={{ padding: "6px", marginRight: "10px", width: "250px" }}
       />
-      <button onClick={handleUpdate}>Update</button>
+      <button onClick={handleUpdate} style={{ padding: "6px 12px", cursor: "pointer" }}>
+        Update Recipe
+      </button>
     </div>
   );
 };
