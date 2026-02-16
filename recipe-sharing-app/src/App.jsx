@@ -1,7 +1,9 @@
 // src/App.jsx
 import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import { useRecipeStore } from "./components/recipeStore";
 import RecipeList from "./components/RecipeList";
+import RecipeDetails from "./components/RecipeDetails";
 import SearchBar from "./components/SearchBar";
 
 const App = () => {
@@ -20,7 +22,6 @@ const App = () => {
     <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
       <h1>Recipe Sharing App</h1>
 
-      {/* Add recipe form */}
       <div style={{ marginBottom: "20px" }}>
         <input
           type="text"
@@ -36,19 +37,15 @@ const App = () => {
           onChange={(e) => setDescription(e.target.value)}
           style={{ padding: "8px", marginRight: "10px", width: "250px" }}
         />
-        <button
-          onClick={handleAdd}
-          style={{ padding: "8px 16px", cursor: "pointer" }}
-        >
-          Add Recipe
-        </button>
+        <button onClick={handleAdd}>Add Recipe</button>
       </div>
 
-      {/* Search */}
       <SearchBar />
 
-      {/* Recipe List */}
-      <RecipeList />
+      <Routes>
+        <Route path="/" element={<RecipeList />} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
+      </Routes>
     </div>
   );
 };

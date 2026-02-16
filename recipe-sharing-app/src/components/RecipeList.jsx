@@ -1,23 +1,24 @@
-import { useEffect } from "react";
+// src/components/RecipeList.jsx
+import React from "react";
+import { Link } from "react-router-dom";
 import { useRecipeStore } from "./recipeStore";
 
 const RecipeList = () => {
-  const { filteredRecipes, recipes, searchTerm, setSearchTerm } = useRecipeStore();
-
-  // fallback to recipes if filteredRecipes is empty
-  const listToShow = filteredRecipes || recipes;
+  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes || state.recipes);
 
   return (
     <ul style={{ listStyle: "none", padding: 0 }}>
-      {Array.isArray(listToShow) &&
-        listToShow.map((recipe) => (
-          <li
-            key={recipe.id}
-            style={{ marginBottom: "10px", border: "1px solid #ccc", padding: "10px" }}
-          >
+      {filteredRecipes.map((recipe) => (
+        <li
+          key={recipe.id}
+          style={{ marginBottom: "15px", border: "1px solid #ccc", padding: "10px" }}
+        >
+          <Link to={`/recipe/${recipe.id}`} style={{ fontWeight: "bold" }}>
             {recipe.title}
-          </li>
-        ))}
+          </Link>
+          <p>{recipe.description}</p>
+        </li>
+      ))}
     </ul>
   );
 };
