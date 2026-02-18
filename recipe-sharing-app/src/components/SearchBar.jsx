@@ -1,18 +1,14 @@
-// src/components/SearchBar.jsx
 import React from "react";
 import { useRecipeStore } from "./recipeStore";
 
 const SearchBar = () => {
-  const setSearchTerm = useRecipeStore((state) => state.setSearchTerm);
+  const setSearchTerm = useRecipeStore(state => state.setSearchTerm);
 
-  return (
-    <input
-      type="text"
-      placeholder="Search recipes..."
-      onChange={(e) => setSearchTerm(e.target.value)}
-      style={{ padding: "8px", marginBottom: "20px", width: "100%" }}
-    />
-  );
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  return <input type="text" placeholder="Search recipes..." onChange={handleChange} />;
 };
 
 export default SearchBar;

@@ -1,27 +1,36 @@
 // src/components/RecipeDetails.jsx
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useRecipeStore } from "./recipeStore";
-import EditRecipeForm from "./EditRecipeForm";
-import DeleteRecipeButton from "./DeleteRecipeButton";
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useRecipeStore } from './recipeStore';
 
 const RecipeDetails = () => {
   const { id } = useParams();
-  const recipeId = parseInt(id);
-  const recipe = useRecipeStore((state) =>
-    state.recipes.find((r) => r.id === recipeId)
-  );
-
   const navigate = useNavigate();
+  const { recipes, deleteRecipe, updateRecipe } = useRecipeStore();
+  const recipe = recipes.find(r => r.id === id);
 
-  if (!recipe) return <p>Recipe not found</p>;
+  const [title, setTitle] = useState(recipe?.title || '');
+  const [description, setDescription] = useState(recipe?.description || '');
+
+  if (!recipe) return <p>Recipe not found.</p>;
+
+  const handleUpdate = () => {
+    updateRecipe(id, title, description);
+    alert('Recipe updated!');
+  };
+
+  const handleDelete = () => {
+    deleteRecipe(id);
+    navigate('/');
+  };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
-      <h2>{recipe.title}</h2>
-      <p>{recipe.description}</p>
-      <EditRecipeForm recipe={recipe} />
-      <DeleteRecipeButton recipeId={recipe.id} navigate={navigate} />
+    <div>
+      <h2>Edit Recipe</h2>
+      <input value={title} onChange={(e) => setTitle(e.target.value)} />
+      <input value={description} onChange={(e) => setDescription(e.target.value)} />
+      <button onClick={handleUpdate}>Update</button>
+      <button onClick={handleDelete} style={{ marginLeft: '10px' }}>Delete</button>
     </div>
   );
 };
