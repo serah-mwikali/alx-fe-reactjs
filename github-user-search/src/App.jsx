@@ -1,12 +1,11 @@
-// src/App.jsx
 import React from 'react';
-import SearchForm from './components/SearchForm';
+import Search from './components/Search';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>GitHub User Search</h1>
-      <SearchForm />
+      <Search />
     </div>
   );
 }
