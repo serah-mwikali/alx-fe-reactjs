@@ -3,8 +3,7 @@ import Search from './components/Search';
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-2xl font-bold text-center my-4">GitHub User Search</h1>
+    <div className="min-h-screen bg-gray-100">
       <Search />
     </div>
   );
