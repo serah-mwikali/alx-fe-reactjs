@@ -6,11 +6,9 @@ function AddRecipeForm() {
   const [instructions, setInstructions] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  // ✅ ALX expects a separate validate function
+  const validate = () => {
     const newErrors = {};
-
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim() || ingredients.split(",").length < 2)
       newErrors.ingredients = "At least 2 ingredients required (comma-separated)";
@@ -18,21 +16,25 @@ function AddRecipeForm() {
       newErrors.instructions = "Preparation steps are required";
 
     setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    if (Object.keys(newErrors).length === 0) {
-      // Simulate saving the recipe
-      console.log({
-        title,
-        ingredients: ingredients.split(",").map((i) => i.trim()),
-        instructions,
-      });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validate()) return; // stop submission if validation fails
 
-      // Reset form
-      setTitle("");
-      setIngredients("");
-      setInstructions("");
-      alert("Recipe added successfully! 🎉");
-    }
+    // simulate saving
+    console.log({
+      title,
+      ingredients: ingredients.split(",").map((i) => i.trim()),
+      instructions,
+    });
+
+    // reset form
+    setTitle("");
+    setIngredients("");
+    setInstructions("");
+    alert("Recipe added successfully! 🎉");
   };
 
   return (
@@ -41,9 +43,7 @@ function AddRecipeForm() {
         onSubmit={handleSubmit}
         className="bg-white w-full max-w-lg p-4 sm:p-6 rounded-2xl shadow-md"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          Add New Recipe
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Add New Recipe</h2>
 
         {/* Title */}
         <div className="mb-4">
