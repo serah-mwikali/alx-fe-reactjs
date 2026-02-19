@@ -6,7 +6,6 @@ function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    // Load recipes into state
     setRecipes(recipesData);
   }, []);
 
@@ -16,7 +15,15 @@ function HomePage() {
         🍽️ Recipe Sharing Platform
       </h1>
 
-      {/* Responsive Grid */}
+      <div className="flex justify-center mb-6">
+        <Link
+          to="/add"
+          className="text-blue-600 hover:underline font-medium"
+        >
+          ➕ Add New Recipe
+        </Link>
+      </div>
+
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {recipes.map((recipe) => (
           <Link
