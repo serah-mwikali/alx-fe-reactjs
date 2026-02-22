@@ -18,7 +18,7 @@ const RegistrationForm = () => {
     e.preventDefault();
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-      // Submit form (mock API simulation)
+      // Mock API submission
       console.log({ username, email, password });
       alert("Registration Successful!");
       setUsername("");
@@ -30,8 +30,10 @@ const RegistrationForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+      <h2>Controlled Form</h2>
+
+      <div style={{ marginBottom: "10px" }}>
         <label>Username:</label>
         <input
           type="text"
@@ -41,7 +43,7 @@ const RegistrationForm = () => {
         {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
       </div>
 
-      <div>
+      <div style={{ marginBottom: "10px" }}>
         <label>Email:</label>
         <input
           type="email"
@@ -51,7 +53,7 @@ const RegistrationForm = () => {
         {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
       </div>
 
-      <div>
+      <div style={{ marginBottom: "10px" }}>
         <label>Password:</label>
         <input
           type="password"
